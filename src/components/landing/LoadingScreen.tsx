@@ -67,26 +67,24 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
       {/* Center content */}
       <div className="relative flex flex-col items-center select-none">
-        {/* Subtitle — slides up from clip */}
-        <div className="overflow-hidden mb-8">
+        {/* Subtitle */}
+        <div className="mb-8">
           <p className="loader-subtitle text-[#b5a898] text-[10px] tracking-[0.5em] uppercase">
             Bali-Based Design &amp; Technology Studio
           </p>
         </div>
 
-        {/* "Wana" — slides up from clip */}
-        <div className="overflow-hidden">
-          <h1
-            className="loader-word-1 font-serif font-bold text-white"
-            style={{
-              fontSize: "clamp(2.8rem, 11vw, 8rem)",
-              lineHeight: 1,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            Wana
-          </h1>
-        </div>
+        {/* "Wana" */}
+        <h1
+          className="loader-word-1 font-serif font-bold text-white"
+          style={{
+            fontSize: "clamp(2.8rem, 11vw, 8rem)",
+            lineHeight: 1,
+            letterSpacing: "-0.01em",
+          }}
+        >
+          Wana
+        </h1>
 
         {/* Gold thin rule between words */}
         <div
@@ -96,30 +94,22 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           <div className="loader-rule absolute inset-y-0 left-0 bg-[#c8a96e]" />
         </div>
 
-        {/* "Digital" — slides up slightly later */}
-        <div
+        {/* "Digital" */}
+        <h1
+          className="loader-word-2 font-serif font-bold"
           style={{
-            overflow: "clip",
-            paddingBottom: "0.25em",
-            marginBottom: "-0.25em",
+            fontSize: "clamp(2.8rem, 11vw, 8rem)",
+            lineHeight: 1,
+            letterSpacing: "-0.01em",
+            color: "transparent",
+            WebkitTextStroke: "1px rgba(255,255,255,0.55)",
           }}
         >
-          <h1
-            className="loader-word-2 font-serif font-bold"
-            style={{
-              fontSize: "clamp(2.8rem, 11vw, 8rem)",
-              lineHeight: 1,
-              letterSpacing: "-0.01em",
-              color: "transparent",
-              WebkitTextStroke: "1px rgba(255,255,255,0.55)",
-            }}
-          >
-            Digital
-          </h1>
-        </div>
+          Digital
+        </h1>
 
         {/* Counter */}
-        <div className="overflow-hidden mt-6">
+        <div className="mt-6">
           <p className="loader-counter-wrap text-white/20 text-[10px] tracking-[0.35em] font-mono tabular-nums">
             <LoadingCounter />
           </p>

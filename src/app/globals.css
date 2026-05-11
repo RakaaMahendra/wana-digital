@@ -62,26 +62,28 @@ body {
   }
 }
 
-/* Subtitle slides up into clip container */
+/* Subtitle fades + slides up */
 .loader-subtitle {
   opacity: 0;
-  transform: translateY(100%);
-  animation: loaderSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  transform: translateY(20px);
+  animation: loaderFadeSlide 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
 }
 
-/* "Wana" — the first word rises up */
+/* "Wana" fades + slides up */
 .loader-word-1 {
-  transform: translateY(110%);
-  animation: loaderSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: loaderFadeSlide 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
 }
 
-/* "Digital" — outline word rises up slightly after */
+/* "Digital" fades + slides up slightly after */
 .loader-word-2 {
-  transform: translateY(110%);
-  animation: loaderSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: loaderFadeSlide 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
 }
 
-@keyframes loaderSlideUp {
+@keyframes loaderFadeSlide {
   to {
     opacity: 1;
     transform: translateY(0);
