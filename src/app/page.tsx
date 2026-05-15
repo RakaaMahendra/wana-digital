@@ -64,7 +64,7 @@ export default function Home() {
       {!loaded && <LoadingScreen onComplete={() => setLoaded(true)} />}
 
       <div
-        className={`h-screen overflow-hidden transition-opacity duration-700 ${
+        className={`h-dvh overflow-hidden transition-opacity duration-700 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
       >

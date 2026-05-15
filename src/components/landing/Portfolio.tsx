@@ -103,6 +103,46 @@ const fallbackDesignPortfolio: PortfolioItem[] = [
     is_featured: true,
     created_at: "",
   },
+  {
+    id: "6",
+    title: "Jiwa Branding 1",
+    description:
+      "Brand identity design for Jiwa showcasing logo and visual identity elements",
+    category: "Logo & Brand Identity",
+    image_url: "/asset/Jiwa Branding 1.png",
+    is_featured: true,
+    created_at: "",
+  },
+  {
+    id: "7",
+    title: "Jiwa Branding 2",
+    description:
+      "Extended brand identity design for Jiwa with comprehensive visual system",
+    category: "Logo & Brand Identity",
+    image_url: "/asset/Jiwa Branding 2.png",
+    is_featured: true,
+    created_at: "",
+  },
+  {
+    id: "8",
+    title: "Jiwa Social Media 1",
+    description:
+      "Social media content design for Jiwa with on-brand visual storytelling",
+    category: "Social Media Design",
+    image_url: "/asset/Jiwa Socmed 1.png",
+    is_featured: true,
+    created_at: "",
+  },
+  {
+    id: "9",
+    title: "Jiwa Social Media 2",
+    description:
+      "Social media feed and content design for Jiwa brand across platforms",
+    category: "Social Media Design",
+    image_url: "/asset/Jiwa Socmed 2.png",
+    is_featured: true,
+    created_at: "",
+  },
 ];
 
 function getCategoryGroup(category: string): CategoryGroup {
@@ -117,6 +157,7 @@ export default function Portfolio() {
   );
   const [activeTab, setActiveTab] = useState<CategoryGroup>("All");
   const [showAll, setShowAll] = useState(false);
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/portfolio")
@@ -163,10 +204,10 @@ export default function Portfolio() {
   ];
 
   return (
-    <section className="h-screen overflow-y-auto bg-[#f8f6f2]">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-28 pb-16 section-enter">
+    <section className="h-dvh overflow-y-auto bg-[#f8f6f2]">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-20 sm:pt-28 pb-16 section-enter">
         {/* Section header line */}
-        <div className="flex items-center gap-4 mb-20">
+        <div className="flex items-center gap-4 mb-10 sm:mb-20">
           <span className="text-[#c8a96e] font-serif text-sm">03</span>
           <div className="h-px flex-1 bg-[#e0dbd3]" />
           <span className="text-[#b5a898] text-[11px] tracking-[0.2em] uppercase">
@@ -218,10 +259,12 @@ export default function Portfolio() {
           {displayed.map((item) => {
             const isTech =
               getCategoryGroup(item.category) === "Technology & IT";
+            const isActive = activeId === item.id;
             return (
               <div
                 key={item.id}
                 className="group relative aspect-[4/3] overflow-hidden bg-[#e0dbd3] cursor-pointer"
+                onClick={() => setActiveId(isActive ? null : item.id)}
               >
                 <Image
                   src={item.image_url}
@@ -233,8 +276,14 @@ export default function Portfolio() {
                     isTech ? "object-top" : "object-center"
                   }`}
                 />
-                {/* Hover overlay — single opacity transition, no bg flicker */}
-                <div className="absolute inset-0 bg-[#1a1a1a]/70 transition-opacity duration-500 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100">
+                {/* Overlay — visible on hover (desktop) or tap (mobile) */}
+                <div
+                  className={`absolute inset-0 bg-[#1a1a1a]/70 transition-opacity duration-500 flex flex-col justify-end p-6 ${
+                    isActive
+                      ? "opacity-100"
+                      : "opacity-0 group-hover:opacity-100"
+                  }`}
+                >
                   <span className="text-[#c8a96e] text-[10px] tracking-[0.2em] uppercase mb-1">
                     {item.category}
                   </span>

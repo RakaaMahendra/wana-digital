@@ -29,10 +29,10 @@ interface AboutProps {
 
 export default function About({ onNavigate }: AboutProps) {
   return (
-    <section className="h-screen overflow-y-auto bg-[#f8f6f2]">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-28 pb-16 section-enter">
+    <section className="h-dvh overflow-y-auto bg-[#f8f6f2]">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-20 sm:pt-28 pb-16 section-enter">
         {/* Section header line */}
-        <div className="flex items-center gap-4 mb-20">
+        <div className="flex items-center gap-4 mb-10 sm:mb-20">
           <span className="text-[#c8a96e] font-serif text-sm">01</span>
           <div className="h-px flex-1 bg-[#e0dbd3]" />
           <span className="text-[#b5a898] text-[11px] tracking-[0.2em] uppercase">
@@ -40,7 +40,7 @@ export default function About({ onNavigate }: AboutProps) {
           </span>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-20">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20">
           {/* Left Content */}
           <div>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#1a1a1a] font-bold leading-[1.2] mb-8">

@@ -68,16 +68,15 @@ export default function Testimonials() {
       .catch(() => setTestimonials(fallbackTestimonials));
   }, []);
 
-  if (testimonials === null)
-    return <section className="h-screen bg-[#1a1a1a]" />;
+  if (testimonials === null) return <section className="h-dvh bg-[#1a1a1a]" />;
 
   const displayed = showAll ? testimonials : testimonials.slice(0, 2);
 
   return (
-    <section className="h-screen overflow-y-auto bg-[#1a1a1a]">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-28 pb-16 section-enter">
+    <section className="h-dvh overflow-y-auto bg-[#1a1a1a]">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-20 sm:pt-28 pb-16 section-enter">
         {/* Section header line */}
-        <div className="flex items-center gap-4 mb-20">
+        <div className="flex items-center gap-4 mb-10 sm:mb-20">
           <span className="text-[#c8a96e] font-serif text-sm">04</span>
           <div className="h-px flex-1 bg-white/10" />
           <span className="text-white/30 text-[11px] tracking-[0.2em] uppercase">

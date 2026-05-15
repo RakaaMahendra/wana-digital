@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 interface LoadingScreenProps {
@@ -8,148 +9,264 @@ interface LoadingScreenProps {
 
 export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [exiting, setExiting] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [linesVisible, setLinesVisible] = useState(false);
   const calledRef = useRef(false);
 
+  // Trigger line / content reveal shortly after mount
+  useEffect(() => {
+    const t = setTimeout(() => setLinesVisible(true), 250);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Progress counter
+  useEffect(() => {
+    const steps = 60;
+    const intervalMs = 2800 / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current++;
+      const eased = 1 - Math.pow(1 - current / steps, 2);
+      setProgress(Math.round(eased * 100));
+      if (current >= steps) clearInterval(timer);
+    }, intervalMs);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Exit timing
   useEffect(() => {
     if (calledRef.current) return;
     calledRef.current = true;
-
-    const exitTimer = setTimeout(() => setExiting(true), 3000);
-    const doneTimer = setTimeout(() => onComplete(), 3700);
-
+    const t1 = setTimeout(() => setExiting(true), 3200);
+    const t2 = setTimeout(() => onComplete(), 3900);
     return () => {
-      clearTimeout(exitTimer);
-      clearTimeout(doneTimer);
+      clearTimeout(t1);
+      clearTimeout(t2);
     };
   }, [onComplete]);
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-[#1a1a1a]"
+      className="fixed inset-0 flex items-center justify-center"
       style={{
         zIndex: 9999,
+        background: "#0d0d0d",
         opacity: exiting ? 0 : 1,
         transition: "opacity 0.7s cubic-bezier(0.76, 0, 0.24, 1)",
         pointerEvents: exiting ? "none" : "auto",
       }}
     >
-      {/* Architectural grid overlay */}
+      {/* Blueprint grid */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
+            "linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
         }}
       />
 
-      {/* Corner brackets */}
-      <div className="absolute top-10 left-10 w-14 h-14 border-t border-l border-white/10 loader-bracket" />
-      <div className="absolute top-10 right-10 w-14 h-14 border-t border-r border-white/10 loader-bracket" />
-      <div className="absolute bottom-10 left-10 w-14 h-14 border-b border-l border-white/10 loader-bracket" />
-      <div className="absolute bottom-10 right-10 w-14 h-14 border-b border-r border-white/10 loader-bracket" />
+      {/* Architectural corner brackets */}
+      <div
+        className="absolute top-8 left-8"
+        style={{
+          width: 28,
+          height: 28,
+          borderTop: "1px solid rgba(200,169,110,0.5)",
+          borderLeft: "1px solid rgba(200,169,110,0.5)",
+        }}
+      />
+      <div
+        className="absolute top-8 right-8"
+        style={{
+          width: 28,
+          height: 28,
+          borderTop: "1px solid rgba(200,169,110,0.5)",
+          borderRight: "1px solid rgba(200,169,110,0.5)",
+        }}
+      />
+      <div
+        className="absolute bottom-8 left-8"
+        style={{
+          width: 28,
+          height: 28,
+          borderBottom: "1px solid rgba(200,169,110,0.5)",
+          borderLeft: "1px solid rgba(200,169,110,0.5)",
+        }}
+      />
+      <div
+        className="absolute bottom-8 right-8"
+        style={{
+          width: 28,
+          height: 28,
+          borderBottom: "1px solid rgba(200,169,110,0.5)",
+          borderRight: "1px solid rgba(200,169,110,0.5)",
+        }}
+      />
 
-      {/* Thin vertical lines from center */}
-      <div
-        className="absolute top-0 left-1/2 w-px loader-vline-top"
-        style={{
-          background:
-            "linear-gradient(to bottom, transparent, rgba(200,169,110,0.25))",
-        }}
-      />
-      <div
-        className="absolute bottom-0 left-1/2 w-px loader-vline-bottom"
-        style={{
-          background:
-            "linear-gradient(to top, transparent, rgba(200,169,110,0.25))",
-        }}
-      />
+      {/* Studio label — top center */}
+      <div className="absolute top-10 inset-x-0 flex justify-center">
+        <p
+          style={{
+            color: "rgba(255,255,255,0.18)",
+            fontSize: 9,
+            letterSpacing: "0.5em",
+            textTransform: "uppercase",
+            fontFamily: "monospace",
+            opacity: linesVisible ? 1 : 0,
+            transition: "opacity 1s ease 0.5s",
+          }}
+        >
+          Bali-Based Design &amp; Technology Studio
+        </p>
+      </div>
 
       {/* Center content */}
-      <div className="relative flex flex-col items-center select-none">
-        {/* Subtitle */}
-        <div className="mb-8">
-          <p className="loader-subtitle text-[#b5a898] text-[10px] tracking-[0.5em] uppercase">
-            Bali-Based Design &amp; Technology Studio
-          </p>
-        </div>
-
-        {/* "Wana" */}
-        <h1
-          className="loader-word-1 font-serif font-bold text-white"
-          style={{
-            fontSize: "clamp(2.8rem, 11vw, 8rem)",
-            lineHeight: 1,
-            letterSpacing: "-0.01em",
-          }}
-        >
-          Wana
-        </h1>
-
-        {/* Gold thin rule between words */}
+      <div
+        className="relative z-10 flex flex-col items-center"
+        style={{ gap: 0 }}
+      >
+        {/* Top drawing line */}
         <div
-          className="relative w-full h-px my-2 overflow-hidden"
-          style={{ maxWidth: "clamp(2.8rem, 11vw, 8rem)" }}
-        >
-          <div className="loader-rule absolute inset-y-0 left-0 bg-[#c8a96e]" />
-        </div>
-
-        {/* "Digital" */}
-        <h1
-          className="loader-word-2 font-serif font-bold"
           style={{
-            fontSize: "clamp(2.8rem, 11vw, 8rem)",
-            lineHeight: 1,
-            letterSpacing: "-0.01em",
-            color: "transparent",
-            WebkitTextStroke: "1px rgba(255,255,255,0.55)",
+            height: 1,
+            width: linesVisible ? 240 : 0,
+            background: "rgba(255,255,255,0.09)",
+            transition: "width 1.3s cubic-bezier(0.16,1,0.3,1)",
+            marginBottom: 36,
+          }}
+        />
+
+        {/* Logo + brand */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 18,
+            opacity: linesVisible ? 1 : 0,
+            transform: linesVisible ? "translateY(0)" : "translateY(8px)",
+            transition: "opacity 0.9s ease 0.55s, transform 0.9s ease 0.55s",
           }}
         >
-          Digital
-        </h1>
+          <Image
+            src="/asset/26.png"
+            alt="Wana Digital"
+            width={52}
+            height={52}
+            style={{
+              objectFit: "contain",
+              filter: "brightness(0) invert(1)",
+              opacity: 0.88,
+            }}
+            priority
+          />
 
-        {/* Counter */}
-        <div className="mt-6">
-          <p className="loader-counter-wrap text-white/20 text-[10px] tracking-[0.35em] font-mono tabular-nums">
-            <LoadingCounter />
-          </p>
+          <div style={{ textAlign: "center" }}>
+            <p
+              style={{
+                color: "#ffffff",
+                fontFamily: "serif",
+                fontSize: 20,
+                fontWeight: 700,
+                letterSpacing: "0.45em",
+                textTransform: "uppercase",
+                marginBottom: 12,
+              }}
+            >
+              Wana Digital
+            </p>
+            {/* Gold rule below brand name */}
+            <div
+              style={{
+                width: "100%",
+                height: 1,
+                background: "rgba(200,169,110,0.38)",
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Bottom drawing line */}
+        <div
+          style={{
+            height: 1,
+            width: linesVisible ? 240 : 0,
+            background: "rgba(255,255,255,0.09)",
+            transition: "width 1.3s cubic-bezier(0.16,1,0.3,1) 0.12s",
+            marginTop: 36,
+          }}
+        />
+      </div>
+
+      {/* Progress bar + labels */}
+      <div
+        className="absolute bottom-12 inset-x-0 flex flex-col items-center"
+        style={{ gap: 8 }}
+      >
+        <div
+          style={{
+            width: "min(220px, 52vw)",
+            height: 1,
+            background: "rgba(255,255,255,0.07)",
+            position: "relative",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              height: "100%",
+              width: `${progress}%`,
+              background: "#c8a96e",
+              transition: "width 0.12s ease",
+            }}
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "min(220px, 52vw)",
+          }}
+        >
+          <span
+            style={{
+              color: "rgba(255,255,255,0.2)",
+              fontSize: 9,
+              letterSpacing: "0.3em",
+              fontFamily: "monospace",
+            }}
+          >
+            LOADING
+          </span>
+          <span
+            style={{
+              color: "rgba(200,169,110,0.6)",
+              fontSize: 9,
+              letterSpacing: "0.2em",
+              fontFamily: "monospace",
+            }}
+          >
+            {String(progress).padStart(3, "0")}%
+          </span>
         </div>
       </div>
 
       {/* Bottom domain */}
-      <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center overflow-hidden">
-        <span className="loader-bottom text-white/15 text-[9px] tracking-[0.4em] uppercase">
+      <div className="absolute bottom-5 inset-x-0 flex justify-center">
+        <span
+          style={{
+            color: "rgba(255,255,255,0.08)",
+            fontSize: 9,
+            letterSpacing: "0.45em",
+            textTransform: "uppercase",
+          }}
+        >
           wanadigital.id
         </span>
       </div>
     </div>
   );
-}
-
-function LoadingCounter() {
-  const [value, setValue] = useState(0);
-  const startedRef = useRef(false);
-
-  useEffect(() => {
-    if (startedRef.current) return;
-    startedRef.current = true;
-
-    const duration = 2800;
-    const steps = 60;
-    const interval = duration / steps;
-    let current = 0;
-
-    const timer = setInterval(() => {
-      current += 1;
-      // Ease-out curve: slow down near the end
-      const progress = current / steps;
-      const eased = 1 - Math.pow(1 - progress, 2);
-      setValue(Math.round(eased * 100));
-      if (current >= steps) clearInterval(timer);
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  return <>{String(value).padStart(3, "0")}%</>;
 }
