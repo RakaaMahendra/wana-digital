@@ -40,6 +40,9 @@ export const metadata: Metadata = {
     "graphic design indonesia",
     "desain kemasan",
   ],
+  verification: {
+    google: "YI4NyyLDNnPkTUEZFFHPSFRP6uQvPUUPb1RAaYQ_sT0",
+  },
   authors: [{ name: "Wana Digital", url: "https://wanadigital.com" }],
   creator: "Wana Digital",
   publisher: "Wana Digital",
