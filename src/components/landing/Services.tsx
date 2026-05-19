@@ -731,7 +731,7 @@ export default function Services({ onNavigate }: ServicesProps) {
               onClick={() => onNavigate("contact")}
               className="inline-block text-[11px] tracking-[0.2em] uppercase font-semibold px-8 py-3.5 bg-[#1a1a1a] text-white hover:bg-[#c8a96e] transition-all duration-500 rounded-lg"
             >
-              Get a Free Consultation
+              Let's discuss your project
             </button>
           </div>
         </div>

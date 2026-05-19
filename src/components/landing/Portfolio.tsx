@@ -105,9 +105,9 @@ const fallbackDesignPortfolio: PortfolioItem[] = [
   },
   {
     id: "6",
-    title: "Jiwa Branding 1",
+    title: "Darwin Spancer Branding",
     description:
-      "Brand identity design for Jiwa showcasing logo and visual identity elements",
+      "Brand identity design for Darwin Spancer showcasing logo and visual identity elements",
     category: "Logo & Brand Identity",
     image_url: "/asset/Jiwa Branding 1.png",
     is_featured: true,
@@ -115,9 +115,9 @@ const fallbackDesignPortfolio: PortfolioItem[] = [
   },
   {
     id: "7",
-    title: "Jiwa Branding 2",
+    title: "KOL me",
     description:
-      "Extended brand identity design for Jiwa with comprehensive visual system",
+      "Extended brand identity design for KOL me with comprehensive visual system",
     category: "Logo & Brand Identity",
     image_url: "/asset/Jiwa Branding 2.png",
     is_featured: true,
@@ -125,9 +125,9 @@ const fallbackDesignPortfolio: PortfolioItem[] = [
   },
   {
     id: "8",
-    title: "Jiwa Social Media 1",
+    title: "Fyneenindonesia Social Media",
     description:
-      "Social media content design for Jiwa with on-brand visual storytelling",
+      "Social media content design for Fyneenindonesia with on-brand visual storytelling",
     category: "Social Media Design",
     image_url: "/asset/Jiwa Socmed 1.png",
     is_featured: true,
@@ -135,9 +135,9 @@ const fallbackDesignPortfolio: PortfolioItem[] = [
   },
   {
     id: "9",
-    title: "Jiwa Social Media 2",
+    title: "Fyneenindonesia Social Media 2",
     description:
-      "Social media feed and content design for Jiwa brand across platforms",
+      "Social media feed and content design for Fyneenindonesia brand across platforms",
     category: "Social Media Design",
     image_url: "/asset/Jiwa Socmed 2.png",
     is_featured: true,
